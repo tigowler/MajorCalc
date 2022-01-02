@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -36,7 +38,27 @@ public class Login implements ItemListener {
         name = new JLabel("이름");
         id = new JLabel("학번");
         ok = new JButton("OK");
-        ok.addItemListener(this);
+        ok.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (major == null){
+                    //exception dialog
+                    System.out.println("choose major");
+                    return;
+                }
+                if (idField.getText().length()!=7){
+                    //exception dialog
+                    System.out.println("id length");
+                    return;
+                }
+                if (Integer.parseInt(idField.getText().substring(0, 2)) < 18 || Integer.parseInt(idField.getText().substring(0, 2)) > 21){
+                    //exception dialog
+                    System.out.println("id nums");
+                    return;
+                }
+                //setVisible
+            }
+        });
 
         nameField = new JTextField(15);
         idField = new JTextField(15);
