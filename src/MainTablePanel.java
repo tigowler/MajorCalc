@@ -1,25 +1,28 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Vector;
 
-public class JTableExMain extends MouseAdapter implements ActionListener {
+public class MainTablePanel extends MouseAdapter implements ActionListener {
     private Vector<String> vector;
     private DefaultTableModel model;
-    private JTable table;
+    public JTable table;
     private JButton addBtn, delBtn;
-    private JFrame jf;
+    public JPanel mainPanel;
     private ReadCSV rcsv = new ReadCSV();
+    private JScrollPane scroll;
 
-    private int selectedRow=-1;
+    public int[] selectedRows;
 
-    public JTableExMain(){
-        jf = new JFrame("JTable Test: CHO");
+    public MainTablePanel(){
+        mainPanel = new JPanel();
+        mainPanel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "교육과정표"));
 
         //열 이름 만들기
         vector = new Vector<String>();
@@ -36,7 +39,8 @@ public class JTableExMain extends MouseAdapter implements ActionListener {
             }
         };
         table = new JTable(model);
-        JScrollPane scroll = new JScrollPane(table);
+        scroll = new JScrollPane(table);
+        scroll.setPreferredSize(new Dimension(420, 720));
 
         //버튼 추가
         addBtn = new JButton("ADD");
@@ -58,41 +62,46 @@ public class JTableExMain extends MouseAdapter implements ActionListener {
             model.addRow(v);
         }
 
+        setColumnWidth();
+
         //container에 추가
-        jf.add(scroll, "Center");
-        jf.add(p, "South");
-        jf.setBounds(700, 100, 500, 400);
-        jf.setVisible(true);
-        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//        mainPanel.add(scroll, "Center");
+//        mainPanel.add(p, "South");
+        mainPanel.add(scroll);
+//        mainPanel.setBounds(700, 100, 500, 400);
 
         addBtn.addActionListener(this);
         delBtn.addActionListener(this);
         table.addMouseListener(this);
     }
 
-    private void delete(){
-        model.removeRow(selectedRow);
-//        selectedRow = -1;
+    private void setColumnWidth() {
+        table.getColumnModel().getColumn(0).setPreferredWidth(270);
+        table.getColumnModel().getColumn(4).setPreferredWidth(20);
     }
+
+//    private void delete(){
+//        model.removeRow(selectedRow);
+////        selectedRow = -1;
+//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() ==addBtn){
 //            insert();
         } else if (e.getSource()==delBtn){
-            delete();
+//            delete();
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e){
         if (e.getSource() == table){
-            selectedRow = table.getSelectedRow();
-            int[] select = table.getSelectedRows();
-            for (int sel: select){
-                System.out.println(sel);
-            }
-//            System.out.println("Selected! = "+selectedRow);
+            selectedRows = table.getSelectedRows();
         }
+        for (int row : selectedRows){
+            System.out.print(row+" ");
+        }
+        System.out.println();
     }
 }
