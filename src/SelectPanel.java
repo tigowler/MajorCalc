@@ -5,7 +5,7 @@ public class SelectPanel {
     JPanel selectIdsPanel, centerPanel, mainPanel;
     JComboBox idComboBox, majorComboBox;
     JLabel selectIdsLabel;
-    String[] ids = {"18학번", "19학번", "20학번", "21학번"};
+    String[] ids = {"18", "19", "20", "21"};
     String[] majors = {"심화전공", "복수전공", "부전공"};
 
     public MainTablePanel mainTable;

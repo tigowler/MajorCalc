@@ -29,7 +29,7 @@ public class TestMain {
 
         mainFrame.add(selectPanel.mainPanel);
         mainFrame.add(gradePanel.mainPanel);
-        mainFrame.add(resultPanel.mainPanel);
+        mainFrame.add(resultPanel);
 
         mainFrame.setVisible(true);
 //        MainPanel m = new MainPanel();
@@ -52,7 +52,6 @@ public class TestMain {
             for (int i=0; i<gradePanel.gradeTables.length; i++){
                 if (e.getSource() == gradePanel.gradeTables[i].selectToGradeBtns){
                     dest = i;
-                    System.out.println(dest);
                     break;
                 }
             }
@@ -100,7 +99,7 @@ public class TestMain {
     private static class SecondBtnEventListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("give me results!");
+            resultPanel.paintThread(gradePanel.gradeTables);
         }
     }
 
