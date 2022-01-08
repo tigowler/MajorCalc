@@ -3,11 +3,11 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class GradeThread extends Thread{
-    int x, y;
     int speed;
 
-    JPanel panel;
     JTable table;
+    JLabel percent;
+    JPanel panel;
     private ArrayList<String> scores;
     private ArrayList<Integer> times;
     private ArrayList<String> majors;
@@ -16,10 +16,9 @@ public class GradeThread extends Thread{
     CalcRef crf = new CalcRef();
     private DecimalFormat form = new DecimalFormat("#.##");
 
-    public GradeThread(int x, int y, JTable table, JPanel panel){
-        this.x = x;
-        this.y = y;
+    public GradeThread(JTable table, JLabel percent, JPanel panel){
         this.table = table;
+        this.percent = percent;
         this.panel = panel;
         scores = new ArrayList<>();
         times = new ArrayList<>();
@@ -45,13 +44,15 @@ public class GradeThread extends Thread{
             times.add(Integer.parseInt(table.getValueAt(i, 4).toString().substring(0, 1)));
             majors.add(table.getValueAt(i, 2).toString());
         }
-        x+=100;
-        panel.repaint();
         try{
             sleep(speed*100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("30%");
+        percent.setText("30%");
+        panel.revalidate();
+
         speed = (int)(Math.random()*50);
         //2) 이수한 전공필수/선택 학점과 Pass 학점 계산
         for (int i=0; i<majors.size(); i++){
@@ -65,31 +66,36 @@ public class GradeThread extends Thread{
                 passTime+=times.get(i);
             }
         }
-        x+=100;
-        panel.repaint();
         try{
             sleep(speed*100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("60%");
+        percent.setText("60%");
+        panel.revalidate();
+
         speed = (int)(Math.random()*50);
         //3) 총 이수학점 계산
         totalTime = requiredTime+selectiveTime;
-
-        x+=100;
-        panel.repaint();
         try{
             sleep(speed*100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        speed = (int)(Math.random()*50);
+        System.out.println("99%");
+        percent.setText("99%");
+        panel.revalidate();
+
         //4) 성적 계산
         double tmpSum=0;
         for (int i=0; i<scores.size(); i++){
             tmpSum+=times.get(i)*crf.getScore(scores.get(i));
         }
         totalScore = tmpSum/(totalTime-passTime);
+        System.out.println("100%");
+        percent.setText("100%");
+        panel.revalidate();
         System.out.println(this.getState());
     }
 

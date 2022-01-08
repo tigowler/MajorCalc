@@ -2,55 +2,70 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ResultPanel extends JPanel{
-    JPanel centerPanel;
+    JPanel centerPanel, threadPanel;
     JButton gradeToResultBtn;
     GridBagConstraints con = new GridBagConstraints();
-    ImageIcon img1, img2, img3, img4;
     GradeThread gt1, gt2, gt3, gt4;
+    JLabel[] grades = {new JLabel("1학년"), new JLabel("2학년"), new JLabel("3학년"), new JLabel("4학년")};
+    JLabel l1, l2, l3, l4;
 
     public ResultPanel(){
         setLayout(new BorderLayout());
         centerPanel = new JPanel(new GridBagLayout());
+        threadPanel = new JPanel(new GridBagLayout());
+        l1 = new JLabel("0%");
+        l2 = new JLabel("0%");
+        l3 = new JLabel("0%");
+        l4 = new JLabel("0%");
+        setLabelAlignment();
+        setThreadPanel();
         gradeToResultBtn = new JButton("▶");
-
-        centerPanel.setBackground(Color.PINK);
-
+        con.gridx = 0;
+        con.gridy = 0;
+        centerPanel.add(threadPanel, con);
         add(gradeToResultBtn, BorderLayout.WEST);
         add(centerPanel, BorderLayout.CENTER);
     }
 
+    private void setLabelAlignment() {
+        for (JLabel l: grades){
+            l.setHorizontalAlignment(JLabel.CENTER);
+        }
+        l1.setHorizontalAlignment(JLabel.CENTER);
+        l2.setHorizontalAlignment(JLabel.CENTER);
+        l3.setHorizontalAlignment(JLabel.CENTER);
+        l4.setHorizontalAlignment(JLabel.CENTER);
+    }
+
+    private void setThreadPanel() {
+        con.fill = GridBagConstraints.BOTH;
+        con.weightx = 1;
+        con.weighty = 1;
+        con.gridy = 0;
+        for (int i=0; i<grades.length; i++){
+            con.gridx = i;
+            threadPanel.add(grades[i], con);
+        }
+        con.gridy = 1;
+        con.gridx = 0;
+        threadPanel.add(l1, con);
+        con.gridx = 1;
+        threadPanel.add(l2, con);
+        con.gridx = 2;
+        threadPanel.add(l3, con);
+        con.gridx = 3;
+        threadPanel.add(l4, con);
+    }
+
     public void paintThread(GradeTablePanel[] tablePanels){
-        gt1 = new GradeThread(10, 10, tablePanels[0].table, centerPanel);
-        gt2 = new GradeThread(10, 60, tablePanels[1].table, centerPanel);
-        gt3 = new GradeThread(10, 110, tablePanels[2].table, centerPanel);
-        gt4 = new GradeThread(10, 160, tablePanels[3].table, centerPanel);
+        gt1 = new GradeThread(tablePanels[0].table, l1, threadPanel);
+        gt2 = new GradeThread(tablePanels[1].table, l2, threadPanel);
+        gt3 = new GradeThread(tablePanels[2].table, l3, threadPanel);
+        gt4 = new GradeThread(tablePanels[3].table, l4, threadPanel);
 
         gt1.start();
         gt2.start();
         gt3.start();
         gt4.start();
-    }
-
-    public void paintComponent(Graphics g){
-        centerPanel.paint(g);
-
-        img1 = new ImageIcon("C:\\Users\\user\\Desktop\\2021_WINTER\\num1.png");
-        img2 = new ImageIcon("C:\\Users\\user\\Desktop\\2021_WINTER\\num2.png");
-        img3 = new ImageIcon("C:\\Users\\user\\Desktop\\2021_WINTER\\num3.png");
-        img4 = new ImageIcon("C:\\Users\\user\\Desktop\\2021_WINTER\\num4.png");
-
-        g.drawString("어디갔어", 100, 100);
-
-        if (gt1==null||gt2==null||gt3==null||gt4==null){
-            g.drawImage(img1.getImage(), this.getWidth()/2, this.getHeight()/2, null);
-            g.drawImage(img2.getImage(), this.getWidth()/2, this.getHeight()/2, null);
-            g.drawImage(img3.getImage(), this.getWidth()/2, this.getHeight()/2, null);
-            g.drawImage(img4.getImage(), this.getWidth()/2, this.getHeight()/2, null);
-        } else{
-            g.drawImage(img1.getImage(), gt1.x, gt1.y, null);
-            g.drawImage(img2.getImage(), gt2.x, gt2.y, null);
-            g.drawImage(img3.getImage(), gt3.x, gt3.y, null);
-            g.drawImage(img4.getImage(), gt4.x, gt4.y, null);
-        }
     }
 }
