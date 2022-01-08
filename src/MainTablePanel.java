@@ -99,9 +99,9 @@ public class MainTablePanel extends MouseAdapter implements ActionListener {
         if (e.getSource() == table){
             selectedRows = table.getSelectedRows();
         }
-        for (int row : selectedRows){
-            System.out.print(row+" ");
-        }
-        System.out.println();
+//        for (int row : selectedRows){
+//            System.out.print(row+" ");
+//        }
+//        System.out.println();
     }
 }

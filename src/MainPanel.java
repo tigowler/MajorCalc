@@ -2,27 +2,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
 
-public class MainPanel extends JFrame {
+public class MainPanel{
     SelectPanel selectPanel;
     GradePanel gradePanel;
     ResultPanel resultPanel;
 
     public MainPanel(){
-        super("hello");
-        setLayout(new GridLayout(1, 3));
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setExtendedState(MAXIMIZED_BOTH);
-//      setUndecorated(true);
 
         selectPanel = new SelectPanel();
         gradePanel = new GradePanel();
         resultPanel = new ResultPanel();
 
-        add(selectPanel.mainPanel);
-        add(gradePanel.mainPanel);
-        add(resultPanel.mainPanel);
 
-        setVisible(true);
     }
 
     public void addRowToGradeTable(){
