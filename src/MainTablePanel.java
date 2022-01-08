@@ -40,7 +40,7 @@ public class MainTablePanel extends MouseAdapter implements ActionListener {
         };
         table = new JTable(model);
         scroll = new JScrollPane(table);
-        scroll.setPreferredSize(new Dimension(420, 720));
+        scroll.setPreferredSize(new Dimension(450, 720));
 
         //버튼 추가
         addBtn = new JButton("ADD");
