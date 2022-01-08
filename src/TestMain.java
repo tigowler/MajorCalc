@@ -53,22 +53,16 @@ public class TestMain {
             }
 
             for (int i=0; i<selectPanel.mainTable.selectedRows.length; i++){
-                Vector<Object> tmpData = new Vector<>();
+                Vector<Object> tmpData = makeVectorWithCombobox();
                 for (int j=0; j<selectPanel.mainTable.table.getColumnCount(); j++){
                     Object item = selectPanel.mainTable.table.getValueAt(selectPanel.mainTable.selectedRows[i], j);
-                    if (item == null){
-                        tmpData.add(false);
-                    } else if(item == "✔"){
-                        tmpData.add(true);
-                    } else{
-                        tmpData.add(item);
-                    }
+                    tmpData.add(item);
                 }
                 //이미 같은 과목이 들어와있는지 확인
                 //나중에 선택된 창이 없다는 것과 함께 excpetion으로 빼기
                 for (int r=0; r<4; r++){
                     for (int k=0; k<gradePanel.gradeTables[r].model.getRowCount(); k++){
-                        if (tmpData.get(0) ==gradePanel.gradeTables[r].model.getValueAt(k, 0)){
+                        if (tmpData.get(1) ==gradePanel.gradeTables[r].model.getValueAt(k, 1)){
                             isSameLecture = true;
                             break;
                         }
@@ -89,6 +83,14 @@ public class TestMain {
                 });
             }
         }
+
+        private Vector<Object> makeVectorWithCombobox() {
+            Vector<Object> data = new Vector<>();
+            data.add("Click");
+
+            return data;
+        }
+
     }
 
 }
