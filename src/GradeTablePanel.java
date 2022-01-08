@@ -1,27 +1,55 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
-public class GradeTablePanel{
+public class GradeTablePanel extends MouseAdapter implements ActionListener {
     Object[][] data ={};
     String[] columnName = {"과목명(국문)", "인정교과구분", "이수단계", "학점/이론/실습", "p/f"};
-    JPanel mainPanel, westPanel;
+    JPanel mainPanel, westPanel, tablePanel;
     JTable table;
     DefaultTableModel model;
     JScrollPane scrollPane;
-    JButton selectToGradeBtns;
+    JButton selectToGradeBtns, deleteBtn;
+
+    int[] selectedRows;
 
     public GradeTablePanel(){
-        mainPanel = new JPanel(new BorderLayout(10, 0));
-        westPanel = new JPanel(new GridLayout(4, 1, 150, 150));
+        tablePanel = new JPanel();
+        mainPanel = new JPanel(new BorderLayout());
+        westPanel = new JPanel(new GridLayout(4, 1));
         model = new DefaultTableModel(columnName, 0);
         table = new JTable(model);
         scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(420, 150));
         selectToGradeBtns = new JButton("▶");
+        deleteBtn = new JButton("❌");
+
+        tablePanel.add(scrollPane);
         westPanel.add(selectToGradeBtns);
-        mainPanel.add(scrollPane, BorderLayout.CENTER);
+        westPanel.add(deleteBtn);
+        mainPanel.add(tablePanel, BorderLayout.CENTER);
         mainPanel.add(westPanel, BorderLayout.WEST);
+
+        table.addMouseListener(this);
+        deleteBtn.addActionListener(this);
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e){
+        if (e.getSource() == table){
+            selectedRows = table.getSelectedRows();
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        for (int i=selectedRows.length-1; i>=0; i--){
+            model.removeRow(selectedRows[i]);
+        }
+    }
 }

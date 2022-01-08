@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import static java.awt.Frame.MAXIMIZED_BOTH;
@@ -88,8 +87,6 @@ public class TestMain {
                         gradePanel.gradeTables[dest].model.addRow(tmpData);
                     }
                 });
-//                gradePanel.gradeTables[dest].model.addRow(tmpData);
-//                tmpData.clear();
             }
         }
     }
