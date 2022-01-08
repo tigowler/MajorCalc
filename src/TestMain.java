@@ -25,6 +25,7 @@ public class TestMain {
 
         //logic
         setFirstBtnListener();
+        setSecondBtnListener();
 
         mainFrame.add(selectPanel.mainPanel);
         mainFrame.add(gradePanel.mainPanel);
@@ -38,6 +39,10 @@ public class TestMain {
         for (int i=0; i<gradePanel.gradeTables.length; i++){
             gradePanel.gradeTables[i].selectToGradeBtns.addActionListener(new FirstBtnEventListener());
         }
+    }
+
+    private static void setSecondBtnListener() {
+        resultPanel.gradeToResultBtn.addActionListener(new SecondBtnEventListener());
     }
 
     private static class FirstBtnEventListener implements ActionListener{
@@ -89,6 +94,13 @@ public class TestMain {
             data.add("Click");
 
             return data;
+        }
+    }
+
+    private static class SecondBtnEventListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("give me results!");
         }
     }
 

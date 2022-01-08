@@ -49,7 +49,7 @@ public class GradeTablePanel extends MouseAdapter implements ActionListener {
     }
 
     private void setUpScoreColumn(TableColumn column) {
-        String[] item = {"A+", "A0", "A-", "B+", "B0", "B-", "C+", "C0", "C-", "D+", "D0", "D-", "F"};
+        String[] item = {"A+", "A0", "A-", "B+", "B0", "B-", "C+", "C0", "C-", "D+", "D0", "D-", "P", "F"};
         JComboBox<String> comboBox = new JComboBox<>(item);
         column.setCellEditor(new DefaultCellEditor(comboBox));
     }
