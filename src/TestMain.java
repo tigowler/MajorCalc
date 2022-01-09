@@ -101,7 +101,7 @@ public class TestMain {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(resultPanel.paintThread(gradePanel.gradeTables)){
-                resultPanel.calcScoreAndTime();
+                resultPanel.calcScoreAndTime(selectPanel.idComboBox.getSelectedItem().toString(), selectPanel.majorComboBox.getSelectedItem().toString());
             }
 
         }

@@ -31,11 +31,11 @@ public class CalcRef {
                 return 15;
             case "부전공":
                 switch (Integer.parseInt(grade)){
-                    case 2018:
-                    case 2019:
+                    case 18:
+                    case 19:
                         return 30;
-                    case 2020:
-                    case 2021:
+                    case 20:
+                    case 21:
                         return 21;
                 }
                 break;
@@ -49,31 +49,31 @@ public class CalcRef {
         switch (major){
             case "심화전공":
                 switch (Integer.parseInt(grade)){
-                    case 2018:
-                    case 2019:
-                    case 2020:
+                    case 18:
+                    case 19:
+                    case 20:
                         return 60;
-                    case 2021:
+                    case 21:
                         return 72;
                 }
                 break;
             case "복수전공":
                 switch (Integer.parseInt(grade)){
-                    case 2018:
-                    case 2019:
-                    case 2020:
+                    case 18:
+                    case 19:
+                    case 20:
                         return 42;
-                    case 2021:
+                    case 21:
                         return 54;
                 }
                 break;
             case "부전공":
                 switch (Integer.parseInt(grade)){
-                    case 2018:
-                    case 2019:
+                    case 18:
+                    case 19:
                         return 30;
-                    case 2020:
-                    case 2021:
+                    case 20:
+                    case 21:
                         return 21;
                 }
                 break;
