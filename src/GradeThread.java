@@ -72,7 +72,7 @@ public class GradeThread extends Thread{
         }
         totalScore = tmpSum/(totalTime-passTime);
         sleepAndChangeLabel();
-        System.out.println(this.getState());
+        System.out.println("계산 완료");
     }
 
     private void sleepAndChangeLabel(){

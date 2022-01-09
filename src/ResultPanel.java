@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -15,11 +17,13 @@ public class ResultPanel extends Thread{
     ResultScoreTablePanel scoreTablePanel = new ResultScoreTablePanel();
     DefaultChartPanel defaultChartPanel = new DefaultChartPanel();
     ChartPanel chartPanel;
+    IconPanel iconPanel = new IconPanel();
 
     public ResultPanel(){
         mainPanel = new JPanel(new BorderLayout());
         centerPanel = new JPanel(new GridBagLayout());
         threadPanel = new JPanel(new GridBagLayout());
+        threadPanel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "계산 진행율"));
         chartAreaPanel = new JPanel(new BorderLayout());
         l1 = new JLabel("0%");
         l2 = new JLabel("0%");
@@ -35,18 +39,21 @@ public class ResultPanel extends Thread{
         chartAreaPanel.add(chartTitle, BorderLayout.NORTH);
         chartAreaPanel.add(defaultChartPanel, BorderLayout.CENTER);
 
-        con.weighty = 0.3;
+        con.weighty = 0.5;
         con.gridx = 0;
         con.gridy = 0;
         centerPanel.add(threadPanel, con);
-        con.weighty = 1.5;
         con.gridy = 1;
-        centerPanel.add(timeTablePanel, con);
-        con.weighty = 3;
-        con.gridy = 2;
+        con.weighty = 4;
         centerPanel.add(chartAreaPanel, con);
-        con.gridy = 3;
+        con.gridy = 2;
+        con.weighty = 1.5;
         centerPanel.add(scoreTablePanel, con);
+        con.gridy = 3;
+        centerPanel.add(timeTablePanel, con);
+        con.weighty = 0.5;
+        con.gridy = 4;
+        centerPanel.add(iconPanel, con);
         mainPanel.add(gradeToResultBtn, BorderLayout.WEST);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
     }
@@ -106,7 +113,6 @@ public class ResultPanel extends Thread{
 
     public void calcScoreAndTime(String stdGrade, String stdMajor){
         //GradeThread에 접근해 필요한 table, chart에 필요한 변수들 계산
-        System.out.println("도착했어@_@");
 
         //값 모두 가져와 저장하기
         ArrayList<Integer> allRequiredTime = new ArrayList<>();
