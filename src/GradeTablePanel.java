@@ -63,6 +63,9 @@ public class GradeTablePanel extends MouseAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (selectedRows==null||selectedRows.length<=0){
+            return;
+        }
         for (int i=selectedRows.length-1; i>=0; i--){
             model.removeRow(selectedRows[i]);
         }

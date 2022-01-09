@@ -2,10 +2,10 @@ import javax.swing.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import static java.lang.Double.NaN;
+
 public class GradeThread extends Thread{
     JTable table;
-    JLabel percent;
-    JPanel panel;
     private ArrayList<String> scores;
     private ArrayList<Integer> times;
     private ArrayList<String> majors;
@@ -13,12 +13,10 @@ public class GradeThread extends Thread{
     private double totalScore;
     CalcRef crf = new CalcRef();
     private DecimalFormat form = new DecimalFormat("#.##");
+    int name;
 
-    public GradeThread(JTable table, JLabel percent, JPanel panel){
+    public GradeThread(JTable table, int name){
         this.table = table;
-        this.percent = percent;
-        percent.setText("0%");
-        this.panel = panel;
         scores = new ArrayList<>();
         times = new ArrayList<>();
         majors = new ArrayList<>();
@@ -27,6 +25,7 @@ public class GradeThread extends Thread{
         passTime = 0;
         totalTime =0;
         totalScore = 0.0;
+        this.name = name;
     }
 
     @Override
@@ -69,8 +68,7 @@ public class GradeThread extends Thread{
         }
         totalScore = tmpSum/(totalTime-passTime);
         sleepAndChangeLabel();
-        percent.setText("100%");
-        System.out.println("계산 완료");
+        System.out.println(name+ "학년 계산완료");
     }
 
     private void sleepAndChangeLabel(){
@@ -84,6 +82,9 @@ public class GradeThread extends Thread{
     }
 
     public String getStringTotalScore(){
+        if (totalScore==NaN){
+            totalScore = 0;
+        }
         return form.format(totalScore);
     }
 

@@ -13,9 +13,26 @@ public class ChartPanel extends JPanel {
     private Graphics2D g2;
     private String[] legendString = {"성적", "이수학점"};
 
+    public ChartPanel(){
+        ArrayList<Integer> tmpScores = new ArrayList<>();
+        tmpScores.add(0);
+        tmpScores.add(0);
+        tmpScores.add(0);
+        tmpScores.add(0);
+        ArrayList<Integer> tmpTimes = new ArrayList<>();
+        tmpTimes.add(0);
+        tmpTimes.add(0);
+        tmpTimes.add(0);
+        tmpTimes.add(0);
+        this.scores = tmpScores;
+        this.times = tmpTimes;
+        super.repaint();
+    }
+
     public ChartPanel(ArrayList<Integer> scores, ArrayList<Integer> times){
         this.scores = scores;
         this.times = times;
+        super.repaint();
     }
 
     protected void paintComponent(Graphics g){
