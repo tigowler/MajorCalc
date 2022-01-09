@@ -1,9 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class ResultPanel extends Thread{
-    JPanel mainPanel, centerPanel, threadPanel, chartPanel;
+    JPanel mainPanel, centerPanel, threadPanel, chartAreaPanel;
     JButton gradeToResultBtn, paintResultBtn;
     GridBagConstraints con = new GridBagConstraints();
     GradeThread gt1, gt2, gt3, gt4;
@@ -13,11 +14,14 @@ public class ResultPanel extends Thread{
     CalcRef calc = new CalcRef();
     ResultTablePanel timeTablePanel = new ResultTablePanel();
     ResultScoreTablePanel scoreTablePanel = new ResultScoreTablePanel();
+    DefaultChartPanel defaultChartPanel = new DefaultChartPanel();
+    ChartPanel chartPanel;
 
     public ResultPanel(){
         mainPanel = new JPanel(new BorderLayout());
         centerPanel = new JPanel(new GridBagLayout());
         threadPanel = new JPanel(new GridBagLayout());
+        chartAreaPanel = new JPanel(new BorderLayout());
         l1 = new JLabel("0%");
         l2 = new JLabel("0%");
         l3 = new JLabel("0%");
@@ -26,15 +30,21 @@ public class ResultPanel extends Thread{
         setThreadPanel();
         gradeToResultBtn = new JButton("▶");
         paintResultBtn = new JButton("Show Result");
+
+        chartAreaPanel.add(defaultChartPanel, BorderLayout.CENTER);
+
         con.weighty = 0.1;
         con.gridx = 0;
         con.gridy = 0;
         centerPanel.add(threadPanel, con);
-        con.weighty = 1;
+        con.weighty = 1.5;
         con.gridy = 1;
         centerPanel.add(timeTablePanel, con);
         con.gridy = 2;
         centerPanel.add(scoreTablePanel, con);
+        con.weighty = 3;
+        con.gridy = 3;
+        centerPanel.add(chartAreaPanel, con);
         mainPanel.add(gradeToResultBtn, BorderLayout.WEST);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
     }
@@ -122,6 +132,14 @@ public class ResultPanel extends Thread{
 
         //성적 table에 입력
         scoreTablePanel.setScoreToTable(scorePerGrade, allTotalTime);
+
+        //chart에 성적 입력
+        ArrayList<Integer> scores = new ArrayList<>();
+        for (int i=0; i<scorePerGrade.size(); i++){
+            scores.add((int)(Double.parseDouble(scorePerGrade.get(i))*100));
+        }
+        chartPanel = new ChartPanel(scores);
+        chartAreaPanel.add(chartPanel, BorderLayout.CENTER);
     }
 
     private void saveFigurePerGrade(GradeThread gt, ArrayList<Integer> allRequiredTime, ArrayList<Integer> allTotalTime, ArrayList<String> scorePerGrade) {

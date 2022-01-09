@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Vector;
@@ -8,6 +9,7 @@ public class ResultTablePanel extends JPanel{
     JTable table;
     DefaultTableModel model;
     JScrollPane scrollPane;
+    DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 
     public ResultTablePanel(){
         model = new DefaultTableModel(columnName, 0);
@@ -15,9 +17,17 @@ public class ResultTablePanel extends JPanel{
         table.setRowHeight(40);
         scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(420, 100));
+        renderer.setHorizontalAlignment(JLabel.CENTER);
 
         setMajorClassfier();
+        setAllColumnsAlignCenter();
         add(scrollPane);
+    }
+
+    private void setAllColumnsAlignCenter() {
+        for (int i=0; i<table.getColumnCount(); i++){
+            table.getColumn(columnName[i]).setCellRenderer(renderer);
+        }
     }
 
     private void setMajorClassfier() {

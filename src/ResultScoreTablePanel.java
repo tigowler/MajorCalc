@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ public class ResultScoreTablePanel extends JPanel {
     JTable table;
     DefaultTableModel model;
     JScrollPane scrollPane;
+    DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 
     public ResultScoreTablePanel(){
         model = new DefaultTableModel(columnName, 0);
@@ -16,9 +18,17 @@ public class ResultScoreTablePanel extends JPanel {
         table.setRowHeight(40);
         scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(420, 100));
+        renderer.setHorizontalAlignment(JLabel.CENTER);
 
         setClassifier();
+        setAllColumnsAlignCenter();
         add(scrollPane);
+    }
+
+    private void setAllColumnsAlignCenter() {
+        for (int i=0; i<table.getColumnCount(); i++){
+            table.getColumn(columnName[i]).setCellRenderer(renderer);
+        }
     }
 
     private void setClassifier() {
@@ -31,7 +41,7 @@ public class ResultScoreTablePanel extends JPanel {
 
     public void setScoreToTable(ArrayList<String> scores, ArrayList<Integer> totalTime){
         for (int i=0; i<scores.size(); i++){
-            table.setValueAt(scores.get(i), 0, (i+1));
+            table.setValueAt(scores.get(i)+"/4.3", 0, (i+1));
         }
         for (int i=0; i<totalTime.size(); i++){
             table.setValueAt(totalTime.get(i), 1, (i+1));
