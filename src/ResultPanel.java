@@ -12,12 +12,21 @@ public class ResultPanel{
     CalcRef calc = new CalcRef();
     ResultTablePanel timeTablePanel = new ResultTablePanel();
     ResultScoreTablePanel scoreTablePanel = new ResultScoreTablePanel();
+<<<<<<< HEAD
     ChartPanel chartPanel = new ChartPanel();
     IconPanel iconPanel = new IconPanel();
+=======
+    DefaultChartPanel defaultChartPanel = new DefaultChartPanel();
+    ChartPanel chartPanel;
+>>>>>>> parent of 86618e7 (complete default)
 
     public ResultPanel(){
         mainPanel = new JPanel(new BorderLayout());
         centerPanel = new JPanel(new GridBagLayout());
+<<<<<<< HEAD
+=======
+        threadPanel = new JPanel(new GridBagLayout());
+>>>>>>> parent of 86618e7 (complete default)
         chartAreaPanel = new JPanel(new BorderLayout());
         chartTitle = new JLabel("학년별 성적과 이수학점");
         chartTitle.setHorizontalAlignment(JLabel.CENTER);
@@ -27,6 +36,7 @@ public class ResultPanel{
         chartAreaPanel.add(chartTitle, BorderLayout.NORTH);
         chartAreaPanel.add(chartPanel, BorderLayout.CENTER);
 
+<<<<<<< HEAD
         con.fill = GridBagConstraints.BOTH;
         con.gridx = 0;
         con.gridy = 0;
@@ -40,6 +50,20 @@ public class ResultPanel{
         con.weighty = 0.5;
         con.gridy = 3;
         centerPanel.add(iconPanel, con);
+=======
+        con.weighty = 0.3;
+        con.gridx = 0;
+        con.gridy = 0;
+        centerPanel.add(threadPanel, con);
+        con.weighty = 1.5;
+        con.gridy = 1;
+        centerPanel.add(timeTablePanel, con);
+        con.weighty = 3;
+        con.gridy = 2;
+        centerPanel.add(chartAreaPanel, con);
+        con.gridy = 3;
+        centerPanel.add(scoreTablePanel, con);
+>>>>>>> parent of 86618e7 (complete default)
         mainPanel.add(gradeToResultBtn, BorderLayout.WEST);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
     }
@@ -69,6 +93,7 @@ public class ResultPanel{
 
     public void calcScoreAndTime(String stdGrade, String stdMajor){
         //GradeThread에 접근해 필요한 table, chart에 필요한 변수들 계산
+        System.out.println("도착했어@_@");
 
         //값 모두 가져와 저장하기
         ArrayList<Integer> allRequiredTime = new ArrayList<>();

@@ -68,7 +68,11 @@ public class GradeThread extends Thread{
         }
         totalScore = tmpSum/(totalTime-passTime);
         sleepAndChangeLabel();
+<<<<<<< HEAD
         System.out.println(name+ "학년 계산완료");
+=======
+        System.out.println(this.getState());
+>>>>>>> parent of 86618e7 (complete default)
     }
 
     private void sleepAndChangeLabel(){
