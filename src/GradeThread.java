@@ -3,8 +3,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class GradeThread extends Thread{
-    int count;
-
     JTable table;
     JLabel percent;
     JPanel panel;
@@ -29,7 +27,6 @@ public class GradeThread extends Thread{
         passTime = 0;
         totalTime =0;
         totalScore = 0.0;
-        count = 0;
     }
 
     @Override
@@ -72,36 +69,17 @@ public class GradeThread extends Thread{
         }
         totalScore = tmpSum/(totalTime-passTime);
         sleepAndChangeLabel();
+        percent.setText("100%");
         System.out.println("계산 완료");
     }
 
     private void sleepAndChangeLabel(){
-        int tmpGoal = setGoal();
-        int currentNum = Integer.parseInt(percent.getText().substring(0, percent.getText().length()-1));
-        for (int i=currentNum; i<=tmpGoal; i++){
-            percent.setText(i+"%");
+        for (int i=0; i<=50; i++){
             try{
                 sleep((int)(Math.random()*100));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-        if (count>=3){
-            count=0;
-        } else{
-         count++;
-        }
-    }
-
-    private int setGoal(){
-        if (count==0){
-            return 30;
-        } else if (count == 1){
-            return 60;
-        } else if (count ==2){
-            return 99;
-        } else {
-            return 100;
         }
     }
 
