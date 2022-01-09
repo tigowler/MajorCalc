@@ -12,9 +12,9 @@ public class ResultTablePanel extends JPanel{
     public ResultTablePanel(){
         model = new DefaultTableModel(columnName, 0);
         table = new JTable(model);
-        table.setRowHeight(65);
+        table.setRowHeight(40);
         scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(420, 150));
+        scrollPane.setPreferredSize(new Dimension(420, 100));
 
         setMajorClassfier();
         add(scrollPane);

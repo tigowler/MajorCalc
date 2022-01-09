@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ResultPanel extends Thread{
@@ -12,7 +11,8 @@ public class ResultPanel extends Thread{
     JLabel l1, l2, l3, l4;
 
     CalcRef calc = new CalcRef();
-    ResultTablePanel tablePanel = new ResultTablePanel();
+    ResultTablePanel timeTablePanel = new ResultTablePanel();
+    ResultScoreTablePanel scoreTablePanel = new ResultScoreTablePanel();
 
     public ResultPanel(){
         mainPanel = new JPanel(new BorderLayout());
@@ -26,11 +26,15 @@ public class ResultPanel extends Thread{
         setThreadPanel();
         gradeToResultBtn = new JButton("▶");
         paintResultBtn = new JButton("Show Result");
+        con.weighty = 0.1;
         con.gridx = 0;
         con.gridy = 0;
         centerPanel.add(threadPanel, con);
+        con.weighty = 1;
         con.gridy = 1;
-        centerPanel.add(tablePanel, con);
+        centerPanel.add(timeTablePanel, con);
+        con.gridy = 2;
+        centerPanel.add(scoreTablePanel, con);
         mainPanel.add(gradeToResultBtn, BorderLayout.WEST);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
     }
@@ -102,7 +106,7 @@ public class ResultPanel extends Thread{
         saveFigurePerGrade(gt3, allRequiredTime, allTotalTime, scorePerGrade);
         saveFigurePerGrade(gt4, allRequiredTime, allTotalTime, scorePerGrade);
 
-        //table에 입력
+        //학점 table에 입력
         int gradRequiredTime = calc.getRequiredCourse(stdGrade, stdMajor);
         int gradTotalTime = calc.getSumCourses(stdGrade, stdMajor);
         int stdRequiredTime = 0;
@@ -114,8 +118,10 @@ public class ResultPanel extends Thread{
             stdTotalTime+=time;
         }
 
-        tablePanel.setTimesToTable(gradRequiredTime, gradTotalTime, stdRequiredTime, stdTotalTime);
+        timeTablePanel.setTimesToTable(gradRequiredTime, gradTotalTime, stdRequiredTime, stdTotalTime);
 
+        //성적 table에 입력
+        scoreTablePanel.setScoreToTable(scorePerGrade, allTotalTime);
     }
 
     private void saveFigurePerGrade(GradeThread gt, ArrayList<Integer> allRequiredTime, ArrayList<Integer> allTotalTime, ArrayList<String> scorePerGrade) {

@@ -61,7 +61,7 @@ public class GradeThread extends Thread{
         }
         sleepAndChangeLabel();
 
-        //3) 총 이수학점 계산, 학년별 성적계산
+        //3) 총 이수학점 계산
         totalTime = requiredTime+selectiveTime;
         sleepAndChangeLabel();
 
