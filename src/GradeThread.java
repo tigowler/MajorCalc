@@ -2,10 +2,12 @@ import javax.swing.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import static java.lang.Double.NaN;
-
 public class GradeThread extends Thread{
+    int count;
+
     JTable table;
+    JLabel percent;
+    JPanel panel;
     private ArrayList<String> scores;
     private ArrayList<Integer> times;
     private ArrayList<String> majors;
@@ -15,8 +17,11 @@ public class GradeThread extends Thread{
     private DecimalFormat form = new DecimalFormat("#.##");
     int name;
 
-    public GradeThread(JTable table, int name){
+    public GradeThread(JTable table, JLabel percent, JPanel panel, int name){
         this.table = table;
+        this.percent = percent;
+        percent.setText("0%");
+        this.panel = panel;
         scores = new ArrayList<>();
         times = new ArrayList<>();
         majors = new ArrayList<>();
@@ -25,6 +30,7 @@ public class GradeThread extends Thread{
         passTime = 0;
         totalTime =0;
         totalScore = 0.0;
+        count = 0;
         this.name = name;
     }
 
@@ -68,27 +74,40 @@ public class GradeThread extends Thread{
         }
         totalScore = tmpSum/(totalTime-passTime);
         sleepAndChangeLabel();
-<<<<<<< HEAD
-        System.out.println(name+ "학년 계산완료");
-=======
-        System.out.println(this.getState());
->>>>>>> parent of 86618e7 (complete default)
+        System.out.println(name+"학년 계산완료");
     }
 
     private void sleepAndChangeLabel(){
-        for (int i=0; i<=50; i++){
+        int tmpGoal = setGoal();
+        int currentNum = Integer.parseInt(percent.getText().substring(0, percent.getText().length()-1));
+        for (int i=currentNum; i<=tmpGoal; i++){
+            percent.setText(i+"%");
             try{
                 sleep((int)(Math.random()*100));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        if (count>=3){
+            count=0;
+        } else{
+            count++;
+        }
+    }
+
+    private int setGoal(){
+        if (count==0){
+            return 30;
+        } else if (count == 1){
+            return 60;
+        } else if (count ==2){
+            return 99;
+        } else {
+            return 100;
+        }
     }
 
     public String getStringTotalScore(){
-        if (totalScore==NaN){
-            totalScore = 0;
-        }
         return form.format(totalScore);
     }
 
