@@ -1,16 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class ResultPanel extends JPanel{
-    JPanel centerPanel, threadPanel;
-    JButton gradeToResultBtn;
+public class ResultPanel extends Thread{
+    JPanel mainPanel, centerPanel, threadPanel, tablePanel, chartPanel;
+    JButton gradeToResultBtn, paintResultBtn;
     GridBagConstraints con = new GridBagConstraints();
     GradeThread gt1, gt2, gt3, gt4;
     JLabel[] grades = {new JLabel("1학년"), new JLabel("2학년"), new JLabel("3학년"), new JLabel("4학년")};
     JLabel l1, l2, l3, l4;
 
     public ResultPanel(){
-        setLayout(new BorderLayout());
+        mainPanel = new JPanel(new BorderLayout());
         centerPanel = new JPanel(new GridBagLayout());
         threadPanel = new JPanel(new GridBagLayout());
         l1 = new JLabel("0%");
@@ -20,11 +20,12 @@ public class ResultPanel extends JPanel{
         setLabelAlignment();
         setThreadPanel();
         gradeToResultBtn = new JButton("▶");
+        paintResultBtn = new JButton("Show Result");
         con.gridx = 0;
         con.gridy = 0;
         centerPanel.add(threadPanel, con);
-        add(gradeToResultBtn, BorderLayout.WEST);
-        add(centerPanel, BorderLayout.CENTER);
+        mainPanel.add(gradeToResultBtn, BorderLayout.WEST);
+        mainPanel.add(centerPanel, BorderLayout.CENTER);
     }
 
     private void setLabelAlignment() {
@@ -57,7 +58,7 @@ public class ResultPanel extends JPanel{
         threadPanel.add(l4, con);
     }
 
-    public void paintThread(GradeTablePanel[] tablePanels){
+    public boolean paintThread(GradeTablePanel[] tablePanels){
         gt1 = new GradeThread(tablePanels[0].table, l1, threadPanel);
         gt2 = new GradeThread(tablePanels[1].table, l2, threadPanel);
         gt3 = new GradeThread(tablePanels[2].table, l3, threadPanel);
@@ -67,5 +68,21 @@ public class ResultPanel extends JPanel{
         gt2.start();
         gt3.start();
         gt4.start();
+
+        try {
+            gt1.join();
+            gt2.join();
+            gt3.join();
+            gt4.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    public void calcScoreAndTime(){
+        //GradeThread에 접근해 필요한 table, chart에 필요한 변수들 계산
+        System.out.println("도착했어@_@");
     }
 }

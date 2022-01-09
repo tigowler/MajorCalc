@@ -11,10 +11,11 @@ public class TestMain {
     static SelectPanel selectPanel;
     static GradePanel gradePanel;
     static ResultPanel resultPanel;
+    static JFrame mainFrame;
     static boolean isSameLecture = false;
 
     public static void main(String[] args) {
-        JFrame mainFrame = new JFrame("SM IT MAJOR CALC");
+        mainFrame = new JFrame("SM IT MAJOR CALC");
         mainFrame.setLayout(new GridLayout(1, 3));
         mainFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         mainFrame.setExtendedState(MAXIMIZED_BOTH);
@@ -29,7 +30,7 @@ public class TestMain {
 
         mainFrame.add(selectPanel.mainPanel);
         mainFrame.add(gradePanel.mainPanel);
-        mainFrame.add(resultPanel);
+        mainFrame.add(resultPanel.mainPanel);
 
         mainFrame.setVisible(true);
 //        MainPanel m = new MainPanel();
@@ -99,7 +100,10 @@ public class TestMain {
     private static class SecondBtnEventListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            resultPanel.paintThread(gradePanel.gradeTables);
+            if(resultPanel.paintThread(gradePanel.gradeTables)){
+                resultPanel.calcScoreAndTime();
+            }
+
         }
     }
 

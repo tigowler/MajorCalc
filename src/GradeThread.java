@@ -19,6 +19,7 @@ public class GradeThread extends Thread{
     public GradeThread(JTable table, JLabel percent, JPanel panel){
         this.table = table;
         this.percent = percent;
+        percent.setText("0%");
         this.panel = panel;
         scores = new ArrayList<>();
         times = new ArrayList<>();
@@ -45,7 +46,6 @@ public class GradeThread extends Thread{
             majors.add(table.getValueAt(i, 2).toString());
         }
         sleepAndChangeLabel();
-        percent.setText("30%");
 
         //2) 이수한 전공필수/선택 학점과 Pass 학점 계산
         for (int i=0; i<majors.size(); i++){
@@ -60,12 +60,10 @@ public class GradeThread extends Thread{
             }
         }
         sleepAndChangeLabel();
-        System.out.println("60%");
 
         //3) 총 이수학점 계산
         totalTime = requiredTime+selectiveTime;
         sleepAndChangeLabel();
-        System.out.println("99%");
 
         //4) 성적 계산
         double tmpSum=0;
@@ -74,7 +72,6 @@ public class GradeThread extends Thread{
         }
         totalScore = tmpSum/(totalTime-passTime);
         sleepAndChangeLabel();
-        System.out.println("100%");
         System.out.println(this.getState());
     }
 
@@ -83,7 +80,6 @@ public class GradeThread extends Thread{
         int currentNum = Integer.parseInt(percent.getText().substring(0, percent.getText().length()-1));
         for (int i=currentNum; i<=tmpGoal; i++){
             percent.setText(i+"%");
-            panel.revalidate();
             try{
                 sleep((int)(Math.random()*100));
             } catch (InterruptedException e) {
