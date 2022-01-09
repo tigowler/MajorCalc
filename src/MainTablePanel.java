@@ -3,17 +3,14 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
-public class MainTablePanel extends MouseAdapter implements ActionListener {
+public class MainTablePanel extends MouseAdapter {
     private Vector<String> vector;
     private DefaultTableModel model;
     public JTable table;
-    private JButton addBtn, delBtn;
     public JPanel mainPanel;
     private ReadCSV rcsv = new ReadCSV();
     private JScrollPane scroll;
@@ -42,14 +39,6 @@ public class MainTablePanel extends MouseAdapter implements ActionListener {
         scroll = new JScrollPane(table);
         scroll.setPreferredSize(new Dimension(450, 720));
 
-        //버튼 추가
-        addBtn = new JButton("ADD");
-        delBtn = new JButton("DELETE");
-
-        //패널에 버튼 추가
-        JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        p.add(addBtn);
-        p.add(delBtn);
 
         //데이터를 Vector 리스트 형식으로 추가
         for (int i=1; i<rcsv.list.size(); i++){
@@ -63,15 +52,7 @@ public class MainTablePanel extends MouseAdapter implements ActionListener {
         }
 
         setColumnWidth();
-
-        //container에 추가
-//        mainPanel.add(scroll, "Center");
-//        mainPanel.add(p, "South");
         mainPanel.add(scroll);
-//        mainPanel.setBounds(700, 100, 500, 400);
-
-        addBtn.addActionListener(this);
-        delBtn.addActionListener(this);
         table.addMouseListener(this);
     }
 
@@ -80,28 +61,11 @@ public class MainTablePanel extends MouseAdapter implements ActionListener {
         table.getColumnModel().getColumn(4).setPreferredWidth(20);
     }
 
-//    private void delete(){
-//        model.removeRow(selectedRow);
-////        selectedRow = -1;
-//    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() ==addBtn){
-//            insert();
-        } else if (e.getSource()==delBtn){
-//            delete();
-        }
-    }
 
     @Override
     public void mouseClicked(MouseEvent e){
         if (e.getSource() == table){
             selectedRows = table.getSelectedRows();
         }
-//        for (int row : selectedRows){
-//            System.out.print(row+" ");
-//        }
-//        System.out.println();
     }
 }

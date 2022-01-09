@@ -120,10 +120,8 @@ public class ResultPanel{
         return true;
     }
 
+    //GradeThread에 접근해 필요한 table, chart에 필요한 변수들 계산
     public void calcScoreAndTime(String stdGrade, String stdMajor){
-        //GradeThread에 접근해 필요한 table, chart에 필요한 변수들 계산
-        System.out.println("도착했어@_@");
-
         //값 모두 가져와 저장하기
         ArrayList<Integer> allRequiredTime = new ArrayList<>();
         ArrayList<Integer> allTotalTime = new ArrayList<>();

@@ -5,6 +5,6 @@ public class NoScoreSelectedException extends Exception{
     }
 
     public void viewDialog(){
-        System.out.println(grade+"학년에 성적이 입력되지 않은 강의가 있습니다.");
+        new DialogCall(grade+"학년에 성적이 입력되지 않은 강의가 있습니다.");
     }
 }

@@ -103,9 +103,11 @@ public class TestMain {
                 //중복 과목 안내
                 if (!duplicated.isEmpty()){
                     //dialog 출력하는 로직
+                    StringBuilder lectures = new StringBuilder();
                     for (Object item:duplicated){
-                        System.out.println(item+"이 중복되어 등록되지 않았습니다.");
+                        lectures.append("《").append(item).append("》");
                     }
+                    new DialogCall(lectures+"강의가 중복되어 등록되지 않았습니다.");
                     duplicated.clear();
                 }
             }
