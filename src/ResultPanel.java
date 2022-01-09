@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class ResultPanel extends Thread{
     JPanel mainPanel, centerPanel, threadPanel, chartAreaPanel;
@@ -9,7 +8,7 @@ public class ResultPanel extends Thread{
     GridBagConstraints con = new GridBagConstraints();
     GradeThread gt1, gt2, gt3, gt4;
     JLabel[] grades = {new JLabel("1학년"), new JLabel("2학년"), new JLabel("3학년"), new JLabel("4학년")};
-    JLabel l1, l2, l3, l4;
+    JLabel l1, l2, l3, l4, chartTitle;
 
     CalcRef calc = new CalcRef();
     ResultTablePanel timeTablePanel = new ResultTablePanel();
@@ -26,25 +25,28 @@ public class ResultPanel extends Thread{
         l2 = new JLabel("0%");
         l3 = new JLabel("0%");
         l4 = new JLabel("0%");
+        chartTitle = new JLabel("학년별 성적과 이수학점");
+        chartTitle.setHorizontalAlignment(JLabel.CENTER);
         setLabelAlignment();
         setThreadPanel();
         gradeToResultBtn = new JButton("▶");
         paintResultBtn = new JButton("Show Result");
 
+        chartAreaPanel.add(chartTitle, BorderLayout.NORTH);
         chartAreaPanel.add(defaultChartPanel, BorderLayout.CENTER);
 
-        con.weighty = 0.1;
+        con.weighty = 0.3;
         con.gridx = 0;
         con.gridy = 0;
         centerPanel.add(threadPanel, con);
         con.weighty = 1.5;
         con.gridy = 1;
         centerPanel.add(timeTablePanel, con);
-        con.gridy = 2;
-        centerPanel.add(scoreTablePanel, con);
         con.weighty = 3;
-        con.gridy = 3;
+        con.gridy = 2;
         centerPanel.add(chartAreaPanel, con);
+        con.gridy = 3;
+        centerPanel.add(scoreTablePanel, con);
         mainPanel.add(gradeToResultBtn, BorderLayout.WEST);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
     }
@@ -138,7 +140,13 @@ public class ResultPanel extends Thread{
         for (int i=0; i<scorePerGrade.size(); i++){
             scores.add((int)(Double.parseDouble(scorePerGrade.get(i))*100));
         }
-        chartPanel = new ChartPanel(scores);
+
+        ArrayList<Integer> times = new ArrayList<>();
+        for (int time : allTotalTime){
+            times.add(time*15);
+        }
+
+        chartPanel = new ChartPanel(scores, times);
         chartAreaPanel.add(chartPanel, BorderLayout.CENTER);
     }
 
