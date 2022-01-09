@@ -100,10 +100,13 @@ public class TestMain {
     private static class SecondBtnEventListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(resultPanel.paintThread(gradePanel.gradeTables)){
-                resultPanel.calcScoreAndTime(selectPanel.idComboBox.getSelectedItem().toString(), selectPanel.majorComboBox.getSelectedItem().toString());
+            try {
+                if(resultPanel.paintThread(gradePanel.gradeTables)){
+                    resultPanel.calcScoreAndTime(selectPanel.idComboBox.getSelectedItem().toString(), selectPanel.majorComboBox.getSelectedItem().toString());
+                }
+            } catch (NoScoreSelectedException ex) {
+                ex.viewDialog();
             }
-
         }
     }
 

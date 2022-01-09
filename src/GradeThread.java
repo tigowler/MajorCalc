@@ -34,12 +34,11 @@ public class GradeThread extends Thread{
     @Override
     public void run() {
         //1) 성적, 학점, 전공구분 가져오기
+        if (table.getRowCount()==0){
+            System.out.println(name+"학년에 입력된 과목이 없습니다.");
+            return;
+        }
         for (int i=0; i<table.getRowCount(); i++){
-            if (table.getValueAt(i, 0).toString().equals("Click")){
-                System.out.println("성적이 입력되지 않은 과목이 있습니다."+this.getState());
-                this.stop();
-                return;
-            }
             scores.add(table.getValueAt(i, 0).toString());
             times.add(Integer.parseInt(table.getValueAt(i, 4).toString().substring(0, 1)));
             majors.add(table.getValueAt(i, 2).toString());

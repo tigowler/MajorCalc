@@ -88,7 +88,16 @@ public class ResultPanel{
         threadPanel.add(l4, con);
     }
 
-    public boolean paintThread(GradeTablePanel[] tablePanels){
+    public boolean paintThread(GradeTablePanel[] tablePanels) throws NoScoreSelectedException{
+        //성적이 입력되지 않은 강의가 있는지 확인
+        for (int i=0; i<tablePanels.length; i++){
+            for (int j=0; j<tablePanels[i].table.getRowCount(); j++){
+                if (tablePanels[i].table.getValueAt(j, 0).toString().equals("Click")){
+                    throw new NoScoreSelectedException(i+1);
+                }
+            }
+        }
+
         gt1 = new GradeThread(tablePanels[0].table, l1, threadPanel,1);
         gt2 = new GradeThread(tablePanels[1].table, l2, threadPanel,2);
         gt3 = new GradeThread(tablePanels[2].table, l3, threadPanel,3);
