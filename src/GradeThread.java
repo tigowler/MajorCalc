@@ -43,7 +43,6 @@ public class GradeThread extends Thread{
             times.add(Integer.parseInt(table.getValueAt(i, 4).toString().substring(0, 1)));
             majors.add(table.getValueAt(i, 2).toString());
         }
-        sleepAndChangeLabel();
 
         //2) 이수한 전공필수/선택 학점과 Pass 학점 계산
         for (int i=0; i<majors.size(); i++){
@@ -57,11 +56,9 @@ public class GradeThread extends Thread{
                 passTime+=times.get(i);
             }
         }
-        sleepAndChangeLabel();
 
         //3) 총 이수학점 계산
         totalTime = requiredTime+selectiveTime;
-        sleepAndChangeLabel();
 
         //4) 성적 계산
         double tmpSum=0;
@@ -69,19 +66,8 @@ public class GradeThread extends Thread{
             tmpSum+=times.get(i)*crf.getScore(scores.get(i));
         }
         totalScore = tmpSum/(totalTime-passTime);
-        sleepAndChangeLabel();
         percent.setText("100%");
         System.out.println(name+"학년 계산완료");
-    }
-
-    private void sleepAndChangeLabel(){
-        for (int i=0; i<=20; i++){
-            try{
-                sleep((int)(Math.random()*100));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public String getStringTotalScore(){
@@ -90,10 +76,6 @@ public class GradeThread extends Thread{
 
     public int getRequiredTime(){
         return requiredTime;
-    }
-
-    public int getSelectiveTime(){
-        return selectiveTime;
     }
 
     public int getTotalTime(){

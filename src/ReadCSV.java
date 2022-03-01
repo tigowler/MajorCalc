@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,9 +14,10 @@ public class ReadCSV {
     int[] index = {1, 3, 4, 5, 6};
     public ReadCSV(){
         try{
-            br = Files.newBufferedReader(Paths.get("C:\\Users\\user\\Desktop\\2021_WINTER\\ProjectTest\\EXPORT.csv"));
+            Path path = FileSystems.getDefault().getPath("");
+            String directoryName = path.toAbsolutePath().toString();
+            br = Files.newBufferedReader(Paths.get(directoryName+"\\src\\files\\EXPORT.csv"));
             String line = "";
-
             while((line = br.readLine()) != null){
                 List<String> tmpList = new ArrayList<String>();
                 String array[] = line.split(",");
