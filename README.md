@@ -2,4 +2,4 @@
 **✨ TOPIC: IT공학전공 학점계산기**  
 📚 Practicing **Java/Thread**  
 
-<img src="https://user-images.githubusercontent.com/92033114/165814044-d873962e-8117-4220-b4fd-fdad74d83f4b.gif" width="700">
+![majorcalc](https://user-images.githubusercontent.com/92033114/169337762-e072103e-59b5-4f7c-99f6-aa3d71fb1377.gif)
